@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
-    "test": "jasmine-ts",
+    "test": "NODE_ENV=test db-migrate db:create store_front_test && db-migrate --env test up && jasmine-ts && db-migrate db:drop store_front_test",
     "build": "tsc"
   },
   "author": "Rushabha Jain",
@@ -15,8 +15,7 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "pg": "^8.5.1",
-    "typescript": "^4.1.3"
+    "pg": "^8.5.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.1",
@@ -31,6 +30,7 @@
     "jasmine-ts": "^0.3.0",
     "supertest": "^6.1.3",
     "ts-node": "^9.1.1",
-    "tsc-watch": "^4.2.9"
+    "tsc-watch": "^4.2.9",
+    "typescript": "^4.1.3"
   }
 }
