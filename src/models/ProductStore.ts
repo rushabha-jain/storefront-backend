@@ -23,12 +23,15 @@ export class ProductStore {
   async create(product: Product): Promise<Product> {
     try {
       const databaseConnection = await Client.connect();
-      const productTable = await databaseConnection.query(
-        "INSERT INTO products(name, price) VALUES($1, $2)",
+      const productsTable = await databaseConnection.query(
+        "INSERT INTO products(name, price) VALUES($1, $2) RETURNING id",
         [product.name, product.price]
       );
       databaseConnection.release();
-      return productTable.rows[0];
+      return {
+        ...productsTable.rows[0],
+        ...product
+      };
     } catch (error) {
       throw new Error(`Unable to create product ${error}`);
     }
