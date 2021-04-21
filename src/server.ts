@@ -2,7 +2,9 @@ import express from "express";
 import routes from "./routes";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({
+  path: "../dev.env"
+});
 
 const app: express.Application = express();
 const address: string = "0.0.0.0:3000";
