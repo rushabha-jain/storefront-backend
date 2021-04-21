@@ -1,4 +1,5 @@
 import Client from "../database";
+import bcrypt from "bcrypt";
 
 export interface User {
   id: string;
@@ -22,9 +23,11 @@ export class UserStore {
   async create(user: User) {
     try {
       const databaseConnection = await Client.connect();
+      const pepper = process.env.BCRYPT_PASSWORD;
+      const hashedPassword = await bcrypt.hash(user.password + pepper, 10);
       const usersTable = await databaseConnection.query(
         'INSERT INTO users("firstname","lastname", "password") VALUES ($1, $2, $3)',
-        [user.firstname, user.lastname, user.password]
+        [user.firstname, user.lastname, hashedPassword]
       );
       databaseConnection.release();
       return usersTable.rows;
