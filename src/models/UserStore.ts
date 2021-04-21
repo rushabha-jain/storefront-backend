@@ -2,10 +2,10 @@ import Client from "../database";
 import bcrypt from "bcrypt";
 
 export interface User {
-  id: string;
+  id?: number;
   email: string;
   firstname: string;
-  lastname: number;
+  lastname: string;
   password: string;
 }
 
@@ -66,7 +66,7 @@ export class UserStore {
     }
   }
 
-  async show(id: string): Promise<User | null> {
+  async show(id: number): Promise<User | null> {
     const connection = await Client.connect();
     const usersTable = await connection.query(
       "SELECT * FROM users WHERE id=$1",

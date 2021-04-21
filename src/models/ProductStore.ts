@@ -1,7 +1,7 @@
 import Client from "../database";
 
 export interface Product {
-  id: string;
+  id?: number;
   name: string;
   price: number;
 }
@@ -34,7 +34,7 @@ export class ProductStore {
     }
   }
 
-  async show(id: string): Promise<Product | null> {
+  async show(id: number): Promise<Product | null> {
     try {
       const databaseConnection = await Client.connect();
       const productTable = await databaseConnection.query(
