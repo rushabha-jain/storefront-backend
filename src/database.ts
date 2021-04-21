@@ -5,11 +5,11 @@ const env = process.env.NODE_ENV;
 
 if (env === "test") {
   dotenv.config({
-    path: "../test.env"
+    path: "./test.env"
   });
 } else {
   dotenv.config({
-    path: "../dev.env"
+    path: "./dev.env"
   });
 }
 
