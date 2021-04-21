@@ -68,7 +68,6 @@ export class UserStore {
 
   async show(id: string): Promise<User | null> {
     const connection = await Client.connect();
-    const pepper = process.env.BCRYPT_PASSWORD;
     const usersTable = await connection.query(
       "SELECT * FROM users WHERE id=$1",
       [id]
