@@ -31,11 +31,14 @@ export class UserStore {
         saltRounds
       );
       const usersTable = await databaseConnection.query(
-        'INSERT INTO users("email", firstname","lastname", "password") VALUES ($1, $2, $3)',
+        "INSERT INTO users(email, firstname, lastname, password) VALUES ($1, $2, $3, $4) RETURNING id",
         [user.email, user.firstname, user.lastname, hashedPassword]
       );
       databaseConnection.release();
-      return usersTable.rows[0];
+      return {
+        ...usersTable.rows[0],
+        ...user
+      };
     } catch (error) {
       throw new Error(`Unable to create user ${error}`);
     }
@@ -56,6 +59,7 @@ export class UserStore {
           passwordToCompare,
           user.password
         );
+        console.log(`isPasswordSame: ${isPasswordSame}`);
         if (isPasswordSame) {
           return user;
         }
