@@ -19,12 +19,12 @@ describe("Product Model", () => {
   });
   it("create method should add products", async () => {
     const product = {
-      id: productId,
       name: "iPhone SE",
       price: 399
     };
-    const addedProduct = await productStore.create(product);
-    expect(addedProduct.id).toBeDefined();
+    expect(async () => {
+      await productStore.create(product);
+    }).not.toThrowError();
   });
   it("show method should return the product", async () => {
     const product = await productStore.show(productId);
