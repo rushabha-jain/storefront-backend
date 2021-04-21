@@ -24,7 +24,6 @@ describe("Users Model", () => {
   });
   it("create method should add user", async () => {
     const user = {
-      id: userId,
       firstname: "rushabha",
       lastname: "jain",
       email: userEmail,
