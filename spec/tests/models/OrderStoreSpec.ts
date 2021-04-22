@@ -1,35 +1,19 @@
 import { OrderStore } from "../../../src/models/OrderStore";
 import { UserStore } from "../../../src/models/UserStore";
-import { ProductStore } from "../../../src/models/ProductStore";
+import { createRandomUser } from "../helpers/UserOps";
 
 const orderStore = new OrderStore();
 const userStore = new UserStore();
-const productStore = new ProductStore();
 
-let orderId: number, userId: number, productId: number;
-let quantity = 10;
-const user = {
-  firstname: "random",
-  lastname: "random",
-  email: "xyz@xyz.com",
-  password: "random"
-};
-
-const product = {
-  name: "iPhone SE",
-  price: 399
-};
+let orderId: number, userId: number;
 
 describe("Order Model", () => {
   beforeAll(async () => {
-    const newUser = await userStore.create(user);
+    const newUser = await createRandomUser();
     userId = newUser.id as number;
-    const newProduct = await productStore.create(product);
-    productId = newProduct.id as number;
   });
   afterAll(async () => {
     await userStore.delete(userId);
-    await productStore.delete(productId);
   });
   it("Should have an create method", () => {
     expect(orderStore.create).toBeDefined();
@@ -46,9 +30,7 @@ describe("Order Model", () => {
   });
   it("create method should add order", async () => {
     const order = {
-      user_id: userId,
-      product_id: productId,
-      quantity
+      user_id: userId
     };
     const newOrder = await orderStore.create(order);
     orderId = newOrder.id as number;
