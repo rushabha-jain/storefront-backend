@@ -1,4 +1,4 @@
-import { UserStore } from "../UserStore";
+import { UserStore } from "../../../src/models/UserStore";
 
 const userStore = new UserStore();
 let userId: number;

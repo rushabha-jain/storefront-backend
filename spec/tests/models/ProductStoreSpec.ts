@@ -1,4 +1,4 @@
-import { ProductStore } from "../ProductStore";
+import { ProductStore } from "../../../src/models/ProductStore";
 
 const productStore = new ProductStore();
 let productId: number;

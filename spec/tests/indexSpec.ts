@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import expressApp from "../src/server";
+import expressApp from "../../src/server";
 
 const request = supertest(expressApp);
 
