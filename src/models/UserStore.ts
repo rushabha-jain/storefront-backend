@@ -59,7 +59,6 @@ export class UserStore {
           passwordToCompare,
           user.password
         );
-        console.log(`isPasswordSame: ${isPasswordSame}`);
         if (isPasswordSame) {
           return user;
         }
