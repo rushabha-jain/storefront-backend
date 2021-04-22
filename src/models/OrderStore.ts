@@ -1,20 +1,23 @@
 import Client from "../database";
 import { QueryResult } from "pg";
 
-export type OrderStatus = 0 | 1;
+export enum OrderStatusTypes {
+    STATUS_ACTIVE,
+    STATUS_COMPLETED
+}
 
 export type Order = {
   id?: number;
   user_id: number;
   product_id: number;
   quantity: number;
-  status?: OrderStatus;
+  status?: OrderStatusTypes;
 };
 
 export class OrderStore {
   async showOrdersByUserId(
     userId: number,
-    status?: OrderStatus
+    status?: OrderStatusTypes
   ): Promise<Order[]> {
     try {
       const connection = await Client.connect();
