@@ -2,15 +2,13 @@ import Client from "../database";
 import { QueryResult } from "pg";
 
 export enum OrderStatusTypes {
-    STATUS_ACTIVE,
-    STATUS_COMPLETED
+  STATUS_ACTIVE,
+  STATUS_COMPLETED
 }
 
 export type Order = {
   id?: number;
   user_id: number;
-  product_id: number;
-  quantity: number;
   status?: OrderStatusTypes;
 };
 
@@ -22,7 +20,7 @@ export class OrderStore {
     try {
       const connection = await Client.connect();
       let ordersTable: QueryResult<any>;
-      if (status) {
+      if (status || status === 0) {
         ordersTable = await connection.query(
           "SELECT * FROM orders WHERE user_id=$1 AND status=$2;",
           [userId, status]
@@ -42,19 +40,16 @@ export class OrderStore {
 
   async create(order: Order): Promise<Order> {
     try {
-      if (order.quantity > 0) {
-        const connection = await Client.connect();
-        const ordersTable = await connection.query(
-          "INSERT INTO orders(user_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING id;",
-          [order.user_id, order.product_id, order.quantity]
-        );
-        connection.release();
-        return {
-            ...ordersTable.rows[0],
-            ...order
-        };
-      }
-      throw new Error("Enter valid quantity");
+      const connection = await Client.connect();
+      const ordersTable = await connection.query(
+        "INSERT INTO orders(user_id) VALUES ($1) RETURNING id;",
+        [order.user_id]
+      );
+      connection.release();
+      return {
+        ...ordersTable.rows[0],
+        ...order
+      };
     } catch (error) {
       throw new Error(`Unable to mark order complete by user ${error}`);
     }
@@ -63,12 +58,10 @@ export class OrderStore {
   async markOrderComplete(orderId: number) {
     try {
       const connection = await Client.connect();
-      const ordersTable = await connection.query(
-        "UPDATE orders SET status=1 WHERE id=$1;",
-        [orderId]
-      );
+      await connection.query("UPDATE orders SET status=1 WHERE id=$1;", [
+        orderId
+      ]);
       connection.release();
-      return ordersTable.rows;
     } catch (error) {
       throw new Error(`Unable to mark order complete by user ${error}`);
     }
