@@ -53,4 +53,17 @@ export class ProductStore {
       throw new Error(`Unable to get product ${error}`);
     }
   }
+
+  async delete(id: number): Promise<void> {
+    try {
+      const databaseConnection = await Client.connect();
+      await databaseConnection.query(
+        "DELETE FROM products WHERE id=$1",
+        [id]
+      );
+      databaseConnection.release();
+    } catch (error) {
+      throw new Error(`Unable to delete product ${error}`);
+    }
+  }
 }
