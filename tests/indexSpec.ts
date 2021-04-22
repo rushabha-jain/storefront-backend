@@ -5,10 +5,9 @@ const request = supertest(expressApp);
 
 describe("End point tests", () => {
   describe("Products API test", () => {
-    it("Should return the list of products", async done => {
-      const response = await request.get("/api/v1/products");
+    it("Should return the list of products", async () => {
+      const response = await request.get("/products");
       expect(response.status).toBe(200);
-      done();
     });
   });
 });
