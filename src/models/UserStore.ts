@@ -80,4 +80,14 @@ export class UserStore {
     }
     return null;
   }
+
+  async delete(id: number): Promise<void> {
+    try {
+      const databaseConnection = await Client.connect();
+      await databaseConnection.query("DELETE FROM users WHERE id=$1", [id]);
+      databaseConnection.release();
+    } catch (error) {
+      throw new Error(`Unable to delete user ${error}`);
+    }
+  }
 }
