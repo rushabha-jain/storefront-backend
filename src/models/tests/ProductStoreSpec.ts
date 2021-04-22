@@ -1,7 +1,7 @@
 import { ProductStore } from "../ProductStore";
 
 const productStore = new ProductStore();
-const productId = 1;
+let productId: number;
 
 describe("Product Model", () => {
   it("Should have an index method", () => {
@@ -22,9 +22,9 @@ describe("Product Model", () => {
       name: "iPhone SE",
       price: 399
     };
-    expect(async () => {
-      await productStore.create(product);
-    }).not.toThrowError();
+    const newProduct = await productStore.create(product);
+    productId = newProduct.id as number;
+    expect(newProduct.id).toBeDefined();
   });
   it("show method should return the product", async () => {
     const product = await productStore.show(productId);

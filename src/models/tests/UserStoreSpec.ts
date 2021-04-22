@@ -1,7 +1,7 @@
 import { UserStore } from "../UserStore";
 
 const userStore = new UserStore();
-const userId = 1;
+let userId: number;
 const userEmail = "somerandomemail";
 const userPassword = "somerandomepassword";
 
@@ -30,6 +30,7 @@ describe("Users Model", () => {
       password: userPassword
     };
     const addedUser = await userStore.create(user);
+    userId = addedUser.id as number;
     expect(addedUser.id).toBeDefined();
   });
   it("Should authenticate user", async () => {
