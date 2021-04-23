@@ -7,8 +7,8 @@
 
 ## Steps to start the application
 
-1. Create database store_front in postgres
-2.  Move to our project folder and create .env file
+1. Create database `store_front` in postgres
+2. Move to our project folder and create .env file
 3. Add following environment variables in .env
   - `POSTGRES_HOST `(Database Host)
   - `POSTGRES_USER` (Database User)
@@ -19,8 +19,8 @@
   - `SALT_ROUNDS` (No. of times hashing of password should be done)
   - `TOKEN_SECRET` (JWT Secret which would be used create signature)
   - `TEST_ENV` (name of your test environment)
-4. db-migrate --env dev up (Setup schema for dev)
-5. `npm i `(Insall the dependencies)
-6. `npm run test` (Test the application)
-7. `npm run build` (Build the application)
-8. `npm run start` (Start the server)
+4. Run `db-migrate --env dev up` (Setup schema for dev)
+5. Run `npm i `(Insall the dependencies)
+6. Run `npm run test` (Test the application)
+7. Run `npm run build` (Build the application)
+8. Run `npm run start` (Start the server)
