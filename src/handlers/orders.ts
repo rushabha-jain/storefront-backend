@@ -74,5 +74,5 @@ const markAsComplete = async (_req: Request, _res: Response) => {
 export const mountOrders = (app: Application) => {
   app.post("/orders/users/:userId", verifyAuthToken, createOrder);
   app.get("/orders/users/:userId", verifyAuthToken, fetchOrder);
-  app.post("/orders/:orderId/markAsComplete", verifyAuthToken, markAsComplete);
+  app.patch("/orders/:orderId/markAsComplete", verifyAuthToken, markAsComplete);
 };
