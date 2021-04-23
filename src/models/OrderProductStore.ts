@@ -41,4 +41,21 @@ export class OrderProductStore {
       throw new Error(`Unable to add order_product ${error}`);
     }
   }
+
+  async delete(id?: number): Promise<void> {
+    try {
+      const databaseConnection = await Client.connect();
+      if (id) {
+        await databaseConnection.query(
+          "DELETE FROM order_product WHERE id=$1",
+          [id]
+        );
+      } else {
+        await databaseConnection.query("DELETE FROM order_product");
+      }
+      databaseConnection.release();
+    } catch (error) {
+      throw new Error(`Unable to delete order_product ${error}`);
+    }
+  }
 }
