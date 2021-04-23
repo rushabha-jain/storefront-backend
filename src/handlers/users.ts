@@ -71,6 +71,7 @@ const signup = async (_req: Request, _res: Response) => {
     const newUser = await userStore.create(user);
     _res.status(200).send({
       status: "success",
+      data: newUser,
       token: generateJWTToken({
         email: newUser.email
       })
