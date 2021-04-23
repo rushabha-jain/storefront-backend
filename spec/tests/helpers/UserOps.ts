@@ -1,8 +1,13 @@
 import { UserStore, User } from "../../../src/models/UserStore";
+import { generateJWTToken } from "../../../src/util/jwtToken";
 
 const userStore = new UserStore();
 
-export async function createRandomUser(): Promise<User> {
+export async function createRandomUser(): Promise<
+  User & {
+    token: string;
+  }
+> {
   const user = {
     firstname: "random",
     lastname: "random",
@@ -10,9 +15,10 @@ export async function createRandomUser(): Promise<User> {
     password: "random"
   };
   const newUser = await userStore.create(user);
-  return newUser;
-}
-
-export async function deleteRandomUser(userId: number) {
-  await userStore.delete(userId);
+  return {
+    ...newUser,
+    token: generateJWTToken({
+      email: newUser.email
+    })
+  };
 }
