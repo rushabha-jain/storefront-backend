@@ -69,9 +69,13 @@ const signup = async (_req: Request, _res: Response) => {
   }
   try {
     const newUser = await userStore.create(user);
+    const userInfo = {
+      ...newUser,
+      password: undefined
+    }
     _res.status(200).send({
       status: "success",
-      data: newUser,
+      data: userInfo,
       token: generateJWTToken({
         email: newUser.email
       })
