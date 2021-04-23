@@ -15,6 +15,12 @@ const index = async (_req: Request, _res: Response) => {
 
 const login = async (_req: Request, _res: Response) => {
   const { email, password } = _req.body;
+  if (!email || !password) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Missing email/password in request body"
+    });
+  }
   const existingUserInDatabase = await userStore.authenticate(email, password);
   if (existingUserInDatabase) {
     _res.status(200).send({
@@ -33,6 +39,12 @@ const login = async (_req: Request, _res: Response) => {
 
 const create = async (_req: Request, _res: Response) => {
   const user: User = _req.body;
+  if (!user.email || !user.firstname || !user.lastname || !user.password) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Missing email/firstname/lastname/password in request body"
+    });
+  }
   try {
     const newUser = await userStore.create(user);
     _res.status(200).send({
@@ -49,6 +61,12 @@ const create = async (_req: Request, _res: Response) => {
 
 const signup = async (_req: Request, _res: Response) => {
   const user: User = _req.body;
+  if (!user.email || !user.firstname || !user.lastname || !user.password) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Missing email/firstname/lastname/password in request body"
+    });
+  }
   try {
     const newUser = await userStore.create(user);
     _res.status(200).send({
@@ -66,9 +84,15 @@ const signup = async (_req: Request, _res: Response) => {
 };
 
 const show = async (_req: Request, _res: Response) => {
-  const userId = _req.params.id;
+  const userId = parseInt(_req.params.id);
+  if (!userId) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Please send userId in path params"
+    });
+  }
   try {
-    const user = await userStore.show(parseInt(userId));
+    const user = await userStore.show(userId);
     _res.status(200).send({
       status: "success",
       data: user

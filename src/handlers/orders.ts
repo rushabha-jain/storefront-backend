@@ -1,14 +1,18 @@
-import { OrderStore, Order } from "../models/OrderStore";
+import { OrderStore } from "../models/OrderStore";
 import { Application, Request, Response } from "express";
 import verifyAuthToken from "../middlewares/verifyAuthToken";
 const orderStore = new OrderStore();
 
 const createOrder = async (_req: Request, _res: Response) => {
-  const order = _req.body;
   const userId = parseInt(_req.params.userId);
+  if (!userId) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Please send userId in path params"
+    });
+  }
   try {
     const newOrder = await orderStore.create({
-      ...order,
       user_id: userId
     });
     _res.status(200).send({
@@ -25,6 +29,12 @@ const createOrder = async (_req: Request, _res: Response) => {
 
 const fetchOrder = async (_req: Request, _res: Response) => {
   const userId = parseInt(_req.params.userId);
+  if (!userId) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Please send userId in path params"
+    });
+  }
   const status = Number(_req.query.status);
   try {
     const orders = await orderStore.showOrdersByUserId(userId, status);
@@ -42,6 +52,12 @@ const fetchOrder = async (_req: Request, _res: Response) => {
 
 const markAsComplete = async (_req: Request, _res: Response) => {
   const orderId = parseInt(_req.params.orderId);
+  if (!orderId) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Please send orderId in path params"
+    });
+  }
   try {
     await orderStore.markOrderComplete(orderId);
     _res.status(200).send({

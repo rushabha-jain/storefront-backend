@@ -14,6 +14,12 @@ const index = async (_req: Request, _res: Response) => {
 
 const create = async (_req: Request, _res: Response) => {
   const product: Product = _req.body;
+  if (!product.name || !product.price) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Missing name/price in request body"
+    });
+  }
   try {
     const newProduct = await productStore.create(product);
     _res.status(200).send({
@@ -29,9 +35,15 @@ const create = async (_req: Request, _res: Response) => {
 };
 
 const show = async (_req: Request, _res: Response) => {
-  const productId = _req.params.id;
+  const productId = parseInt(_req.params.id);
+  if (!productId) {
+    return _res.status(400).send({
+      status: "failure",
+      message: "Please send productId in path params"
+    });
+  }
   try {
-    const product = await productStore.show(parseInt(productId));
+    const product = await productStore.show(productId);
     _res.status(200).send({
       status: "success",
       data: product
