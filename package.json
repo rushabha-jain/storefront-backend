@@ -8,7 +8,7 @@
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "test": "NODE_ENV=test db-migrate db:create store_front_test && db-migrate --env test up && jasmine-ts && db-migrate db:drop store_front_test",
     "build": "tsc",
-    "dev:server": "ts-node src/server.ts"
+    "dev:start": "ts-node src/server.ts"
   },
   "author": "Rushabha Jain",
   "license": "ISC",
