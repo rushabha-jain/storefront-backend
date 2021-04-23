@@ -1,9 +1,13 @@
 import { ProductStore } from "../../../src/models/ProductStore";
+import cleanup from "../helpers/cleanup";
 
 const productStore = new ProductStore();
 let productId: number;
 
 describe("Product Model", () => {
+  afterAll(async () => {
+    await cleanup();
+  });
   it("Should have an index method", () => {
     expect(productStore.index).toBeDefined();
   });
