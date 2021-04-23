@@ -1,9 +1,8 @@
 import { OrderStore } from "../../../src/models/OrderStore";
-import { UserStore } from "../../../src/models/UserStore";
 import { createRandomUser } from "../helpers/UserOps";
+import cleanup from "../helpers/cleanup";
 
 const orderStore = new OrderStore();
-const userStore = new UserStore();
 
 let orderId: number, userId: number;
 
@@ -13,7 +12,7 @@ describe("Order Model", () => {
     userId = newUser.id as number;
   });
   afterAll(async () => {
-    await userStore.delete(userId);
+    await cleanup();
   });
   it("Should have an create method", () => {
     expect(orderStore.create).toBeDefined();
