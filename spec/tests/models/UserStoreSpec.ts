@@ -1,4 +1,5 @@
 import { UserStore } from "../../../src/models/UserStore";
+import cleanup from "../helpers/cleanup";
 
 const userStore = new UserStore();
 let userId: number;
@@ -6,6 +7,9 @@ const userEmail = "somerandomemail";
 const userPassword = "somerandomepassword";
 
 describe("Users Model", () => {
+  afterAll(async () => {
+    await cleanup();
+  });
   it("Should have an index method", () => {
     expect(userStore.index).toBeDefined();
   });
