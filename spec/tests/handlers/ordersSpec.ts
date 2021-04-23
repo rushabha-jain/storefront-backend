@@ -1,7 +1,6 @@
 import supertest from "supertest";
 import expressApp from "../../../src/server";
-import cleanup from "../helpers/cleanup";
-import { createRandomUser } from "../helpers/UserOps";
+import { createRandomUser, cleanup } from "../utils";
 
 const request = supertest(expressApp);
 let token: string | undefined;

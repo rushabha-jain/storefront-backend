@@ -2,9 +2,7 @@ import {
   OrderProductStore,
   OrderProduct
 } from "../../../src/models/OrderProductStore";
-import { createRandomProduct } from "../helpers/ProductOps";
-import { createRandomOrder } from "../helpers/OrderOps";
-import cleanup from "../helpers/cleanup";
+import { createRandomProduct, createRandomOrder, cleanup } from "../utils";
 
 const orderProductStore = new OrderProductStore();
 let productId: number, orderId: number;

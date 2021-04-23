@@ -1,8 +1,6 @@
 import supertest from "supertest";
 import expressApp from "../../../src/server";
-import cleanup from "../helpers/cleanup";
-import { createRandomProduct } from "../helpers/ProductOps";
-import { createRandomOrder } from "../helpers/OrderOps";
+import { createRandomProduct, cleanup, createRandomOrder } from "../utils";
 
 const request = supertest(expressApp);
 

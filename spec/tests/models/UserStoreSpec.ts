@@ -1,5 +1,5 @@
 import { UserStore } from "../../../src/models/UserStore";
-import cleanup from "../helpers/cleanup";
+import { cleanup } from "../utils";
 
 const userStore = new UserStore();
 let userId: number;

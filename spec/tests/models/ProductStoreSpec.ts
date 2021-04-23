@@ -1,5 +1,5 @@
 import { ProductStore } from "../../../src/models/ProductStore";
-import cleanup from "../helpers/cleanup";
+import { cleanup } from "../utils";
 
 const productStore = new ProductStore();
 let productId: number;

@@ -1,6 +1,5 @@
 import { OrderStore } from "../../../src/models/OrderStore";
-import { createRandomUser } from "../helpers/UserOps";
-import cleanup from "../helpers/cleanup";
+import { createRandomUser, cleanup } from "../utils";
 
 const orderStore = new OrderStore();
 
