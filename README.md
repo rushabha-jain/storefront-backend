@@ -22,10 +22,8 @@
 - `SALT_ROUNDS` (No. of times hashing of password should be done)
 - `TOKEN_SECRET` (JWT Secret which would be used create signature)
 - `TEST_ENV` (name of your test environment(test))
-- `NODE_ENV` (environment of your app(dev/test))
-
 4. Run `db-migrate --env dev up` (Setup schema for dev)
 5. Run `npm i`(Insall the dependencies)
-6. Make `NODE_ENV=test` in `.env` file and Run `npm run test` (Test the application)
+6. Run `npm run test` (Test the application)
 7. Run `npm run build` (Build the application)
-8. Make `NODE_ENV=dev` in `.env` file and Run `npm run start` (Start the server)
+8. Run `npm run start` (Start the server)
