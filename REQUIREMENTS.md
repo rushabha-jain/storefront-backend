@@ -4,30 +4,46 @@
 
 #### products
 
-- id (bigint)
-- name (varchar)
-- price (int)
+- id
+- name
+- price
+
+products(id: BIGSERIAL PRIMARY KEY,
+name: VARCHAR, price: INTEGER)
 
 #### users
 
-- id (bigint)
-- firstname (varchar)
-- lastname (varchar)
-- email (varchar)
-- password (varchar)
+- id
+- firstname
+- lastname
+- email
+- password
+
+users(id: BIGSERIAL PRIMARY KEY,
+firstname: VARCHAR, lastname: VARCHAR,
+email: VARCHAR, password: VARCHAR)
 
 #### orders
 
-- id (bigint)
-- user_id (bigint)
-- status (int)
+- id
+- user_id
+- status
+
+orders(id: BIGSERIAL PRIMARY KEY,
+user_id: BIGINT[FOREIGN KEY to users table],
+status: INTEGER [DEFAULT to 0])
 
 #### order_product
 
-- id (bigint)
-- product_id (bigint)
-- order_id (bigint)
-- quantity (int)
+- id
+- product_id
+- order_id
+- quantity
+
+order_product(id: BIGSERIAL PRIMARY KEY,
+product_id: BIGINT[FOREIGN KEY to products table],
+order_id: BIGINT[FOREIGN KEY to orders table],
+quantity: INTEGER)
 
 ## Users
 
