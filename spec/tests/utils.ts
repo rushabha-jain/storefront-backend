@@ -1,4 +1,4 @@
-import { UserStore, User } from "../../src/models/UserStore";
+import { UserStore, UserPreview } from "../../src/models/UserStore";
 import { ProductStore, Product } from "../../src/models/ProductStore";
 import { OrderStore, Order } from "../../src/models/OrderStore";
 import { OrderProductStore } from "../../src/models/OrderProductStore";
@@ -9,7 +9,7 @@ const productStore = new ProductStore();
 const orderStore = new OrderStore();
 const orderProductStore = new OrderProductStore();
 
-export type AuthUser = User & {
+export type AuthUser = UserPreview & {
   token: string;
 };
 

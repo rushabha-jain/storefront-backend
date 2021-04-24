@@ -9,8 +9,12 @@ export interface User {
   password: string;
 }
 
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+export type UserPreview = Omit<User, "password">;
+
 export class UserStore {
-  async index(): Promise<User[]> {
+  async index(): Promise<UserPreview[]> {
     try {
       const databaseConnection = await Client.connect();
       const usersTable = await databaseConnection.query(
@@ -23,7 +27,7 @@ export class UserStore {
     }
   }
 
-  async create(user: User): Promise<User> {
+  async create(user: User): Promise<UserPreview> {
     try {
       const databaseConnection = await Client.connect();
       const pepper = process.env.BCRYPT_PASSWORD;
@@ -39,15 +43,17 @@ export class UserStore {
       databaseConnection.release();
       return {
         ...usersTable.rows[0],
-        ...user,
-        password: undefined
+        ...user
       };
     } catch (error) {
       throw new Error(`Unable to create user ${error}`);
     }
   }
 
-  async authenticate(email: string, password: string): Promise<User | null> {
+  async authenticate(
+    email: string,
+    password: string
+  ): Promise<UserPreview | null> {
     try {
       const connection = await Client.connect();
       const pepper = process.env.BCRYPT_PASSWORD;
@@ -72,7 +78,7 @@ export class UserStore {
     }
   }
 
-  async show(id: number): Promise<User | null> {
+  async show(id: number): Promise<UserPreview | null> {
     const connection = await Client.connect();
     const usersTable = await connection.query(
       "SELECT id, firstname, lastname, email FROM users WHERE id=$1",
