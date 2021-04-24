@@ -1,5 +1,8 @@
 # store-front
 
+## Schema
+![](store-front-backend.schema.png)
+
 ## Users
 
 ### 1. Create User
