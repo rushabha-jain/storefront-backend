@@ -19,7 +19,7 @@ export class OrderStore {
   ): Promise<Order[]> {
     try {
       const connection = await Client.connect();
-      let ordersTable: QueryResult<any>;
+      let ordersTable: QueryResult<Order>;
       if (status || status === 0) {
         ordersTable = await connection.query(
           "SELECT * FROM orders WHERE user_id=$1 AND status=$2;",
