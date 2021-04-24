@@ -1,7 +1,33 @@
 # store-front
 
-## Schema
-![](store-front-backend.schema.png)
+## Data Shapes
+
+#### products
+
+- id (bigint)
+- name (varchar)
+- price (int)
+
+#### users
+
+- id (bigint)
+- firstname (varchar)
+- lastname (varchar)
+- email (varchar)
+- password (varchar)
+
+#### orders
+
+- id (bigint)
+- user_id (bigint)
+- status (int)
+
+#### order_product
+
+- id (bigint)
+- product_id (bigint)
+- order_id (bigint)
+- quantity (int)
 
 ## Users
 
@@ -41,8 +67,7 @@ URL: {{url}}/users
         "id": "32",
         "firstname": "rushabha",
         "lastname": "jain",
-        "email": "randomEmail1@email.com",
-        "password": "randomePassword"
+        "email": "randomEmail1@email.com"
     }
 }
 ```
@@ -77,8 +102,7 @@ URL: {{url}}/users/:id
         "id": "31",
         "firstname": "Rushabha",
         "lastname": "Jain",
-        "email": "randomEmail@email.com",
-        "password": "$2b$10$o6cx46nuMbG.gVLq1MCfCOh6pQgMYU8Fz96jx5xJXYFwjKiDgYBUm"
+        "email": "randomEmail@email.com"
     }
 }
 ```
@@ -108,8 +132,7 @@ URL: {{url}}/users
             "id": "31",
             "firstname": "Rushabha",
             "lastname": "Jain",
-            "email": "randomEmail@email.com",
-            "password": "$2b$10$o6cx46nuMbG.gVLq1MCfCOh6pQgMYU8Fz96jx5xJXYFwjKiDgYBUm"
+            "email": "randomEmail@email.com"
         }
     ]
 }
