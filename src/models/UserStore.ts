@@ -13,7 +13,9 @@ export class UserStore {
   async index(): Promise<User[]> {
     try {
       const databaseConnection = await Client.connect();
-      const usersTable = await databaseConnection.query("SELECT * FROM users");
+      const usersTable = await databaseConnection.query(
+        "SELECT id, firstname, lastname, email FROM users"
+      );
       databaseConnection.release();
       return usersTable.rows;
     } catch (error) {
@@ -37,7 +39,8 @@ export class UserStore {
       databaseConnection.release();
       return {
         ...usersTable.rows[0],
-        ...user
+        ...user,
+        password: undefined
       };
     } catch (error) {
       throw new Error(`Unable to create user ${error}`);
@@ -72,7 +75,7 @@ export class UserStore {
   async show(id: number): Promise<User | null> {
     const connection = await Client.connect();
     const usersTable = await connection.query(
-      "SELECT * FROM users WHERE id=$1",
+      "SELECT id, firstname, lastname, email FROM users WHERE id=$1",
       [id]
     );
     if (usersTable.rowCount > 0) {
